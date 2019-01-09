@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
+      <el-header >
         <el-menu
           :default-active="activeIndex2"
           class="el-menu-demo"
@@ -101,4 +101,5 @@ body {
   display: block;
   margin: 0px;
 }
+.el-header {background-color: rgb(84, 92, 100)}
 </style>
