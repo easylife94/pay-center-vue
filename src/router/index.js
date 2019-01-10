@@ -4,7 +4,7 @@ import ElementUi from '@/components/ElementUi'
 import Login from '@/components/Login'
 import Admin from '@/components/Admin'
 import ChannelManager from '@/components/ChannelManager'
-
+import Test from '@/components/Test'
 Vue.use(Router)
 
 const router = new Router({
@@ -28,6 +28,11 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: Test
     },
     {
       path: '/elementUi',
