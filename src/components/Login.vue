@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import qs from 'qs'
 
 export default {
   name: 'Login',
@@ -62,12 +62,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let data = {
-            'loginName': this.loginForm.username,
-            'password': this.loginForm.pass
-          }
-          axios
-            .post('http://localhost/api/access/login', data)
+          let params = qs.stringify({
+            loginName: this.loginForm.username,
+            password: this.loginForm.pass
+          })
+          this.axios
+            .post('/api/access/login', params)
             .then(response => {
               console.log(response)
               if (response.status === 200) {
@@ -80,6 +80,9 @@ export default {
               } else {
                 console.error('http请求失败')
               }
+            })
+            .catch(e => {
+              console.error(e)
             })
         } else {
           console.log('error submit!!')

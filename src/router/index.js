@@ -8,6 +8,7 @@ import Test from '@/components/Test'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/admin',
@@ -45,7 +46,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // 遍历所有匹配路由记录下的元信息
   if (to.matched.some(record => record.meta.requireAuth)) {
-    // TODO 每次进入路由之前都要通过后台登录校验接口判断是否登录，和后端保持一致
+    // TODO 每次进入路由之前都要判断是否登录
     next({
       path: '/login',
       query: { redirect: to.fullPath }// 将跳转的路由path作为参数，登录成功后跳转到该路由

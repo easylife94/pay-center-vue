@@ -10,7 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/server': {
+      //   target: 'http://pay-center',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/server': ''
+      //   }
+      // }
+
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

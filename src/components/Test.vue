@@ -3,14 +3,21 @@
 </template>
 
 <script>
-import axios from 'axios'
+import qs from 'qs'
 
-axios.post('http://localhost/hi')
-  .then(response => {
-    console.log(response)
-  })
 export default {
-  name: 'Test'
+  name: 'Test',
+  mounted () {
+    console.log(1)
+    let data = qs.stringify({
+      name: 'cw'
+    })
+    this.axios
+      .post('/hi', data)
+      .then(response => {
+        console.log(response)
+      })
+  }
 }
 </script>
 
