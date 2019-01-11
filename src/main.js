@@ -20,11 +20,15 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 // 返回结果拦截器，全局处理未登录状态
 axios.interceptors.response.use(response => {
-  let data = response.data
-  if (data.code === '000005') {
-    alert(data.msg)
+  if (response.status === 200) {
+    let data = response.data
+    if (data.code === '000005') {
+      alert(data.msg)
+    }
+    return response
+  } else {
+    console.error('http请求失败')
   }
-  return response
 })
 
 Vue.use(ElementUI)
