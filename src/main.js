@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
 
 Vue.config.productionTip = false
 
@@ -33,10 +34,28 @@ axios.interceptors.response.use(response => {
 
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
+Vue.use(Vuex)
+
+// store
+const store = new Vuex.Store({
+  state: {
+    count: 0,
+    loged: false
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    },
+    login (state) {
+      state.loged = true
+    }
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'

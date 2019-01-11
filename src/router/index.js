@@ -42,15 +42,19 @@ const router = new Router({
     }
   ]
 })
+
 // 登录验证
 router.beforeEach((to, from, next) => {
   // 遍历所有匹配路由记录下的元信息
   if (to.matched.some(record => record.meta.requireAuth)) {
-    // TODO 每次进入路由之前都要判断是否登录
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }// 将跳转的路由path作为参数，登录成功后跳转到该路由
-    })
+    // 判断是否登录
+    console.log(this)
+    if (!this.$store.state.loged) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }// 将跳转的路由path作为参数，登录成功后跳转到该路由
+      })
+    }
   } else {
     next()
   }

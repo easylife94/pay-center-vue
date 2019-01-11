@@ -89,6 +89,8 @@ export default {
               if (data.code === '000000') {
                 console.log(data.data)
                 this.loginForm.alert.show = false
+                // 保存登录状态
+                this.$store.commit('login')
                 // 跳转
                 let redirect = this.$route.query.redirect
                 console.log(redirect)
