@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Admin from '@/components/Admin'
 import ChannelManager from '@/components/ChannelManager'
 import Test from '@/components/Test'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -47,13 +48,14 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // 遍历所有匹配路由记录下的元信息
   if (to.matched.some(record => record.meta.requireAuth)) {
-    // 判断是否登录
-    console.log(this)
-    if (!this.$store.state.loged) {
+    // 从localStorage中获取用户信息
+    if (window.localStorage.getItem('userInfo') == null) {
       next({
         path: '/login',
-        query: { redirect: to.fullPath }// 将跳转的路由path作为参数，登录成功后跳转到该路由
+        query: {redirect: to.fullPath}// 将跳转的路由path作为参数，登录成功后跳转到该路由
       })
+    } else {
+      next()
     }
   } else {
     next()

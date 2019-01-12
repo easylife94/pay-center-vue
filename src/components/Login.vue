@@ -10,8 +10,8 @@
                 <el-alert
                   id="login-alert"
                   :closable="false"
-                  v-bind:title="loginForm.alert.msg"
-                  v-if="loginForm.alert.show"
+                  v-bind:title="loginAlert.msg"
+                  v-if="loginAlert.show"
                   type="error">
                 </el-alert>
               </el-form-item>
@@ -57,11 +57,11 @@ export default {
     return {
       loginForm: {
         username: '',
-        pass: '',
-        alert: {
-          show: false,
-          message: ''
-        }
+        pass: ''
+      },
+      loginAlert: {
+        show: false,
+        message: ''
       },
       rules: {
         username: [
@@ -84,17 +84,18 @@ export default {
           this.axios
             .post('/api/access/login', params)
             .then(response => {
-              console.log(response)
               let data = response.data
               if (data.code === '000000') {
-                console.log(data.data)
-                this.loginForm.alert.show = false
-                // 保存登录状态
-                this.$store.commit('login')
+                this.loginAlert.show = false
+                // 保存登录信息
+                window.localStorage.setItem('userInfo', JSON.stringify({
+                  userName: data.data.userName
+                }))
+
                 // 跳转
                 let redirect = this.$route.query.redirect
                 console.log(redirect)
-                if (redirect !== undefined || redirect !== '' || redirect != null) {
+                if (redirect !== undefined && redirect !== '' && redirect != null) {
                   this.$router.push({
                     path: redirect
                   })
@@ -104,7 +105,7 @@ export default {
                   })
                 }
               } else {
-                this.loginForm.alert = {
+                this.loginAlert = {
                   msg: data.msg,
                   show: true
                 }
@@ -119,6 +120,10 @@ export default {
       })
     },
     resetForm (formName) {
+      this.loginAlert = {
+        msg: '',
+        show: false
+      }
       this.$refs[formName].resetFields()
     }
   }
